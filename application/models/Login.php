@@ -50,4 +50,9 @@ class Login extends CI_Model{
 		$this->db->where('users_id',$person_id);
 		return $this->db->get('users')->row();
 	}
+
+	function update_profile($data,$id){
+		$this->db->where('users_id',$id);
+		return $this->db->update('users',$data);
+	}
 }

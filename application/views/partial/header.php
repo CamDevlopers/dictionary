@@ -37,6 +37,7 @@
                 </button>
                 <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-right">
                 <a class="sub_link" href="<?php echo base_url().'manages/add_new'; ?>"><li class="mdl-menu__item">Add new word</li></a>
+                <a class="sub_link" href="<?php echo base_url().'manages/dashboard'; ?>"><li class="mdl-menu__item">My Dashboard</li></a>
                   <a class="sub_link" href="<?php echo base_url().'manages/profile'; ?>"><li class="mdl-menu__item">Profile</li></a>
                   <a class="sub_link" href="<?php echo base_url().'logins/logout'; ?>"><li class="mdl-menu__item">Logout</li></a>
                 </ul>

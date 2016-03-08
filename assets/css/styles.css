@@ -696,9 +696,11 @@ span#animation{
 
 .text-blue{
   color: #2196F3;
+  text-decoration: none;
 }
 .text-error{
   color: #FF5722;
+  text-decoration: none;
 }
 .form-error{
   font-size:12px;
@@ -769,4 +771,16 @@ span#animation{
 .form-add-new{
   width: 90%;
   margin: 0 auto;
+}
+.pull-right{
+  float: right;
+}
+
+.word-title{
+  text-decoration: none;
+  color: #FFF;
+}
+
+.text-flag{
+  font-size: 20px;
 }

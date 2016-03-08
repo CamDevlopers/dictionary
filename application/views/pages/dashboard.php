@@ -34,9 +34,9 @@
                   <tr>
                     <td class="mdl-data-table__cell--non-numeric"><?php echo $i;?></td>
                     <td class="mdl-data-table__cell--non-numeric"><?php echo $value->keyword_title; ?></td>
-                    <td><?php echo $value->keyword_category;?></td>
+                    <td class="mdl-data-table__cell--non-numeric"><?php echo ucfirst($value->keyword_category);?></td>
                     <td><?php echo substr($value->keyword_desc_en,0,50);?>...</td>
-                    <td>Delete | Update</td>
+                    <td><a class="text-blue" href="<?php echo base_url('manages/update_form/'.$value->keywords_id);?>">Update</a> | <a class="text-error" onclick="return confirm('Are you sure to delete?');" href="<?php echo base_url('manages/delete/'.$value->keywords_id);?>">Delete</a></td>
                   </tr>
               <?php
               $i++;

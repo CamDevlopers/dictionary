@@ -28,4 +28,15 @@ class Pages extends CI_Controller {
 		$this->load->view('pages/about');
 	}
 
+	public function search(){
+		$data['search_result'] = $this->Manage->get_search($this->input->get('keyword'));
+		//var_dump($data['search_result']);
+		$this->load->view('pages/search',$data);
+	}
+
+	function detail($keyword_id){
+		$data['result'] = $this->Manage->get_keyword_by_id($keyword_id);
+		$this->load->view('pages/detail',$data);
+	}
+
 }
