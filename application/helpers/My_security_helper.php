@@ -7,6 +7,13 @@
 			redirect("pages/index");
 		}
 	}
+
+	function check_login(){
+		$CI = &get_instance(); 
+		if($CI->session->userdata('user_id')){
+			redirect("manages/dashboard");
+		}
+	}
 	//get current user login
 	function current_user($user_id){
 		$CI = &get_instance();

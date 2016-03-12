@@ -48,5 +48,16 @@ class Manage extends CI_Model{
 		return $this->db->get();
 	}
 
+	function insert_user($data){
+		return $this->db->insert('users',$data);
+	}
+
+	function get_all_user(){
+		$this->db->where('deleted',0);
+		$this->db->where('users_id!=',1);
+		$this->db->order_by('users_id','desc');
+		return $this->db->get('users');
+	}
+
 }
 ?>

@@ -21,11 +21,12 @@ class Pages extends CI_Controller {
 	}
 	// this function will view login form
 	public function login(){
+		check_login();
 		$this->load->view('pages/login');
 	}
 	// this function will view page about
-	public function about(){
-		$this->load->view('pages/about');
+	public function word_list(){
+		$this->load->view('pages/words');
 	}
 
 	public function search(){

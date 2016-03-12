@@ -136,4 +136,37 @@ class Manages extends CI_Controller {
 		}
 	}
 
+	function add_user(){
+		is_user_logined();
+		$this->load->view('pages/add_user');
+	}
+
+	function insert_user(){
+		is_user_logined();
+		$this->form_validation->set_rules('full_name','Full Name','required');
+		$this->form_validation->set_rules('user_name','User Name','required|min_length[4]');
+		$this->form_validation->set_rules('password','Password','min_length[5]');
+		$this->form_validation->set_rules('re-password','Re-type Password','matches[password]');
+
+		if($this->form_validation->run()==FALSE){
+			$this->load->view('pages/add_user');
+		}else{
+			$value['users_password'] = md5($this->input->post('password'));
+			$value['gender'] = $this->input->post('gender');
+			$value['users_full_name'] = $this->input->post('full_name');
+			$value['users_name'] = $this->input->post('user_name');
+			if($this->Manage->insert_user($value)){
+				redirect('manages/view_all_users');
+			}else{
+				echo "You have no permission to update user!";
+			}
+		}
+	}
+
+	function view_all_users(){
+		is_user_logined();
+		$data['users'] = $this->Manage->get_all_user();
+		$this->load->view('pages/list_users',$data);
+	}
+
 }

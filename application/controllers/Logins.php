@@ -10,6 +10,7 @@ class Logins extends CI_Controller {
 
 // this function is use for process form login 
 	public function do_login(){
+		check_login();
 		$user_name = $this->input->post('username');
 		$password = $this->input->post('password');
 
