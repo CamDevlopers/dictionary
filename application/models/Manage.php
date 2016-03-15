@@ -39,8 +39,16 @@ class Manage extends CI_Model{
 	}
 
 	function get_search($search){
-		$this->db->like('keyword_title', $search); 
-		$this->db->or_like('keyword_desc_en', $search); 
+		$this->db->like('keyword_title', $search);
+		$this->db->where('keywords.deleted',0);
+		$this->db->from('keywords');
+		$this->db->join('users','keywords.users_id=users.users_id');
+		return $this->db->get();
+	}
+
+	function get_search_content($search){
+		$this->db->not_like('keyword_title', $search); 
+		$this->db->like('keyword_desc_en', $search); 
 		$this->db->or_like('keyword_desc_kh', $search); 
 		$this->db->where('keywords.deleted',0);
 		$this->db->from('keywords');

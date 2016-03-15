@@ -15,7 +15,7 @@
             </div>
           </div>
           <div class="mdl-mega-footer--middle-section">
-            <p class="mdl-typography--font-light">Copyright © 2016 PNC | Designed By PNC Team</p>
+            <p class="mdl-typography--font-light">Copyright © 2016 PNC | Designed By Vannakpanha</p>
             <p class="mdl-typography--font-light">Some features and devices may not be available in all areas</p>
           </div>
         </footer>
@@ -28,7 +28,7 @@
     <a id="show-dialog" class="btn-search-animation mdl-button mdl-button--fab mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast"></a></div>
     <?php } ?>
     
-     <dialog class="mdl-dialog">
+     <dialog id="mdl-dialog" class="mdl-dialog">
        <form action="<?php echo base_url('pages/search'); ?>">
           <h4 class="mdl-dialog__title">Type your keyword here!</h4>
           <div class="mdl-dialog__content">
@@ -43,20 +43,33 @@
           </div>
         </form>
     </dialog>
-
     <script src="<?php echo base_url(); ?>assets/js/material.min.js"></script>
       <script>
-      var dialog = document.querySelector('dialog');
-      var showDialogButton = document.querySelector('#show-dialog');
-      if (! dialog.showModal) {
-        dialogPolyfill.registerDialog(dialog);
+      var is_chrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
+      // check is user use chrome
+      if(is_chrome){
+        var dialog = document.querySelector('dialog');
+        var showDialogButton = document.querySelector('#show-dialog');
+        if (! dialog.showModal) {
+          dialogPolyfill.registerDialog(dialog);
+        }
+        showDialogButton.addEventListener('click', function() {
+          dialog.showModal();
+        });
+        dialog.querySelector('.close').addEventListener('click', function() {
+          dialog.close();
+        });
+        // if user not use chrome
+      }else{
+        document.getElementById('mdl-dialog').style.display = 'none'; 
+        var url = '<?php echo base_url('pages/view_search'); ?>';
+        document.getElementById("show-dialog").setAttribute("href", url);
       }
-      showDialogButton.addEventListener('click', function() {
-        dialog.showModal();
-      });
-      dialog.querySelector('.close').addEventListener('click', function() {
-        dialog.close();
-      });
+
+      function goBack() {
+          window.history.back();
+      }
+      
     </script>
   </body>
 </html>

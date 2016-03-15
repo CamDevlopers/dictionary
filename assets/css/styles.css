@@ -652,6 +652,12 @@ span#animation{
   padding-top: 5px;
   padding-bottom: 20px;
 }
+.bg-purple-no-padding{
+  background: #9C27B0;
+  height: auto;
+  padding-top: 100px;
+  padding-bottom: 20px;
+}
 
 .text-white{
   color: #FFFFFF;
@@ -787,4 +793,27 @@ span#animation{
 
 .text-flag{
   font-size: 20px;
+}
+
+.search-div{
+  height: 200px;
+}
+.search-firefox{
+  width: 90%;
+}
+.is_focus .label-fire{
+  color: #FFF !important;
+}
+#search_fire_field{
+  border-bottom: solid 1px #FFF;
+  color: #FFF !important;
+  font-size: 20px;
+}
+.is_focus #search_fire_field{
+  border-bottom: solid 1px #FFF;
+}
+
+.label-fire{
+  color: #FFF !important;
+   font-size: 20px;
 }

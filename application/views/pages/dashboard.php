@@ -3,6 +3,7 @@
         <a name="top"></a>
         <div class="mdl-typography--text-center bg-sky-no-padding">
           	<h2 class="text-white">Welcome back, <?php echo current_user($this->session->userdata('user_id'))->users_full_name?>!</h2>
+            <h5 class="text-white-only"> You have added <span style="color:yellow;"><?php echo $result->num_rows(); ?></span> <?php echo $result->num_rows()>1?'Words':'Word' ?></h5>
           	<p class="text-white-only">Thanks for times to share and contributed with us. We still need your help to improve some contents.</p>
 
             <!-- button add -->

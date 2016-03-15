@@ -17,10 +17,10 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `dictionary`
+-- Database: `vannakpanha.mao_dictionary`
 --
-CREATE DATABASE IF NOT EXISTS `dictionary` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
-USE `dictionary`;
+CREATE DATABASE IF NOT EXISTS `vannakpanha.mao_dictionary` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+USE `vannakpanha.mao_dictionary`;
 
 -- --------------------------------------------------------
 

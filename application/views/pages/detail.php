@@ -2,6 +2,9 @@
       <div class="android-content mdl-layout__content">
         <a name="top"></a>
         <div style="background: #<?php echo $result->color; ?>" class="mdl-typography--text-center bg-sky-no-padding">
+        <button onclick="goBack()" style="float: left; top: 25px;left: 10px;" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">
+            <i class="material-icons">keyboard_backspace</i>
+          </button> 
           	<h2 class="text-white"><?php echo $result->keyword_title; ?></h2>
         </div>
         <br/>
