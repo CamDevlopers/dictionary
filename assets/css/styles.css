@@ -817,3 +817,10 @@ span#animation{
   color: #FFF !important;
    font-size: 20px;
 }
+
+.pagination a{
+  text-decoration: none;
+}
+.pagination{
+  padding-left: 20px;
+}

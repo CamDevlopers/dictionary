@@ -3,7 +3,7 @@
         <a name="top"></a>
         <div class="mdl-typography--text-center bg-sky-no-padding">
           	<h2 class="text-white">Welcome back, <?php echo current_user($this->session->userdata('user_id'))->users_full_name?>!</h2>
-            <h5 class="text-white-only"> You have added <span style="color:yellow;"><?php echo $result->num_rows(); ?></span> <?php echo $result->num_rows()>1?'Words':'Word' ?></h5>
+            <h5 class="text-white-only"> You have added <span style="color:yellow;"><?php echo $count_all_word; ?></span> <?php echo $count_all_word>1?'Words':'Word' ?></h5>
           	<p class="text-white-only">Thanks for times to share and contributed with us. We still need your help to improve some contents.</p>
 
             <!-- button add -->
@@ -11,6 +11,12 @@
               Add new word<i class="material-icons">chevron_right</i>
             </button></a>
             <!-- button add -->
+        </div>
+        <br/>
+        <div class="pagination">
+               <?php
+                 echo $pagination;
+                ?>
         </div>
         <!-- word content -->
         <div class="mdl-typography content-list">
@@ -40,6 +46,7 @@
                     <td><a class="text-blue" href="<?php echo base_url('manages/update_form/'.$value->keywords_id);?>">Update</a> | <a class="text-error" onclick="return confirm('Are you sure to delete?');" href="<?php echo base_url('manages/delete/'.$value->keywords_id);?>">Delete</a></td>
                   </tr>
               <?php
+
               $i++;
                 } 
               }else{ ?>
@@ -51,7 +58,14 @@
 
               </tbody>
           </table>
+          
+         
         </div>
+        <div class="pagination">
+               <?php
+                 echo $pagination;
+                ?>
+        </div><br/>
         <!-- end content word -->
 <?php $this->load->view('partial/footer');?>
         

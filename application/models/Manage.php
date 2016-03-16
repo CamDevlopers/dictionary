@@ -2,20 +2,41 @@
 class Manage extends CI_Model{
 
 	function add_word($data){
-		return $this->db->insert('keywords
-', $data);
+		$this->db->insert('keywords', $data);
+		return $this->db->insert_id();
 	}
 
-	function get_keywords($uid){
+	function add_picture($pic){
+		return $this->db->insert('attach',$pic);
+	}
+
+	function get_keywords($uid,$limit,$off_set){
 		if($uid==''){
 			$this->db->where('deleted',0);
 			$this->db->order_by("keywords_id", "desc"); 
+			$this->db->limit($limit,$off_set);
 			return $this->db->get('keywords');
 		}else{
 			$this->db->where('deleted',0);
 			$this->db->where('users_id',$uid);
-			$this->db->order_by("keywords_id", "desc"); 
+			$this->db->order_by("keywords_id", "desc");
+			$this->db->limit($limit,$off_set); 
 			return $this->db->get('keywords');
+		}
+	}
+
+	function get_count_all_keywords($uid){
+		if($uid==''){
+			$this->db->where('deleted',0);
+			$this->db->order_by("keywords_id", "desc"); 
+			//$this->db->limit($limit,$off_set);
+			return $this->db->get('keywords')->num_rows();
+		}else{
+			$this->db->where('deleted',0);
+			$this->db->where('users_id',$uid);
+			$this->db->order_by("keywords_id", "desc");
+			//$this->db->limit($limit,$off_set); 
+			return $this->db->get('keywords')->num_rows();
 		}
 	}
 
@@ -49,7 +70,7 @@ class Manage extends CI_Model{
 	function get_search_content($search){
 		$this->db->not_like('keyword_title', $search); 
 		$this->db->like('keyword_desc_en', $search); 
-		$this->db->or_like('keyword_desc_kh', $search); 
+		//$this->db->like('keyword_desc_kh', $search); 
 		$this->db->where('keywords.deleted',0);
 		$this->db->from('keywords');
 		$this->db->join('users','keywords.users_id=users.users_id');

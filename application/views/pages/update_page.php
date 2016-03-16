@@ -17,7 +17,7 @@
         <!-- word content -->
         <div class="demo-card-wide mdl-card mdl-shadow--2dp form-add-new">
         <div class="mdl-typography content-list">
-      		<form action="<?php echo base_url('manages/update_word');?>" method="post">
+      		<form action="<?php echo base_url('manages/update_word');?>" method="post" enctype="multipart/form-data">
                     <div class="form-100 mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                       <input name="title" class="mdl-textfield__input" type="text" id="word_title" value="<?php echo set_value('title')?set_value('title'):$result->keyword_title; ?>">
                       <label class="mdl-textfield__label" for="word_title">Technical word *</label>
@@ -49,7 +49,8 @@
                       <label class="mdl-textfield__label" for="kh_description">Description in Khmer</label>
                     </div>
                     <span class="text-error form-error"><?php echo form_error('desc_kh');?></span>
-                    <input type="hidden" name="id" value="<?php echo $result->keywords_id;?>"/>
+                    Update images: <input type="hidden" name="id" value="<?php echo $result->keywords_id;?>"/>
+                     <input type="file" name="picture[]" multiple />
                     <div class="mdl-dialog__actions">
                       <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect">Update now</button>
                       <input type="reset" class="mdl-button mdl-js-button mdl-js-ripple-effect" value="Cancel"/>

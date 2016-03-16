@@ -6,17 +6,37 @@ class Manages extends CI_Controller {
 	/*
    	 * @organization PNC
      * @package    Dictionary
-     * @subpackage Pages
+     * @subpackage Manage
      * @author     Vannakpanha MAO <vannakpanha.mao@gmail.com>
    */
 
 	//this default function 
-	public function dashboard()
+	public function dashboard($off_set=0)
 	{
 	
 		is_user_logined();
-		//die($this->session->userdata('user_id'));
-		$data['result'] = $this->Manage->get_keywords($this->session->userdata('user_id'));
+
+		$data['result'] = $this->Manage->get_keywords($this->session->userdata('user_id'),3,$off_set);
+		$data['count_all_word'] = $this->Manage->get_count_all_keywords($this->session->userdata('user_id'));
+		$this->load->library('pagination');
+		$config['base_url'] = base_url('manages/dashboard');
+		$config['total_rows'] = $data['count_all_word'];
+		$config['per_page'] = 3; 
+
+		$config['num_tag_open'] = '<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">';
+		$config['num_tag_close'] = '</button>&nbsp;';
+
+		$config['next_tag_open'] = '<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">';
+		$config['next_tag_close'] = '</button>&nbsp;';
+		$config['prev_tag_open'] = '<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">';
+		$config['prev_tag_close'] = '</button>&nbsp;';
+
+		$config['cur_tag_open'] = '<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">';
+		$config['cur_tag_close'] = '</button>&nbsp;';
+
+ 		$this->pagination->initialize($config); 
+		$data['pagination'] = $this->pagination->create_links();
+
 		$this->load->view('pages/dashboard',$data);
 	}
 
@@ -28,8 +48,8 @@ class Manages extends CI_Controller {
 	public function add_process(){
 		is_user_logined();
 		$this->form_validation->set_rules('title','Key words','required');
-		$this->form_validation->set_rules('desc_en','Description','required|min_length[50]');
-		$this->form_validation->set_rules('desc_kh','Description','min_length[50]');
+		$this->form_validation->set_rules('desc_en','Description','required|min_length[20]');
+		$this->form_validation->set_rules('desc_kh','Description','min_length[20]');
 		$this->form_validation->set_rules('category','Category','required');
 		if($this->form_validation->run()==FALSE){
 			$this->load->view('pages/add_new_page');
@@ -47,8 +67,23 @@ class Manages extends CI_Controller {
 			}else{
 				$data['color'] = 'A5D6A7';
 			}
+			$is_success = $this->Manage->add_word($data);
 
-			if($this->Manage->add_word($data)){
+			if($is_success){
+				// uplaods file
+					$count = 0;
+					foreach($_FILES['picture'] as $file) {
+						if($_FILES["picture"]["name"][$count]!=''){
+							$to = date('Y-m-d-h-s-i').'_'.$_FILES["picture"]["name"][$count];
+				 			move_uploaded_file($_FILES['picture']['tmp_name'][$count],"uploads/".$to); 
+				 			$pic['file_name']=$to;
+				 			$pic['keyword_id']= $is_success;
+				 			$this->Manage->add_picture($pic);
+				 			$count++;
+						}
+						
+					}
+				// end upload file
 				redirect('manages/dashboard');
 			}else{
 				$this->load->view('pages/add_new_page');
@@ -66,8 +101,8 @@ class Manages extends CI_Controller {
 		is_user_logined();
 		
 		$this->form_validation->set_rules('title','Key words','required');
-		$this->form_validation->set_rules('desc_en','Description','required|min_length[50]');
-		$this->form_validation->set_rules('desc_kh','Description','min_length[50]');
+		$this->form_validation->set_rules('desc_en','Description','required|min_length[20]');
+		$this->form_validation->set_rules('desc_kh','Description','min_length[20]');
 		$this->form_validation->set_rules('category','Category','required');
 		if($this->form_validation->run()==FALSE){
 			$this->load->view('pages/update_page');
