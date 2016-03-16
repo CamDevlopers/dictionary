@@ -43,6 +43,7 @@ class Pages extends CI_Controller {
 
 	function detail($keyword_id){
 		$data['result'] = $this->Manage->get_keyword_by_id($keyword_id);
+		$data['images'] = $this->Manage->get_image($keyword_id);
 		$this->load->view('pages/detail',$data);
 	}
 	//this function is use for firefox only

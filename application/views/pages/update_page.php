@@ -17,7 +17,7 @@
         <!-- word content -->
         <div class="demo-card-wide mdl-card mdl-shadow--2dp form-add-new">
         <div class="mdl-typography content-list">
-      		<form action="<?php echo base_url('manages/update_word');?>" method="post" enctype="multipart/form-data">
+      		<form action="<?php echo base_url('manages/update_word/'.$result->keywords_id);?>" method="post" enctype="multipart/form-data">
                     <div class="form-100 mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                       <input name="title" class="mdl-textfield__input" type="text" id="word_title" value="<?php echo set_value('title')?set_value('title'):$result->keyword_title; ?>">
                       <label class="mdl-textfield__label" for="word_title">Technical word *</label>
@@ -49,12 +49,35 @@
                       <label class="mdl-textfield__label" for="kh_description">Description in Khmer</label>
                     </div>
                     <span class="text-error form-error"><?php echo form_error('desc_kh');?></span>
-                    Update images: <input type="hidden" name="id" value="<?php echo $result->keywords_id;?>"/>
-                     <input type="file" name="picture[]" multiple />
+                    <input type="hidden" name="id" value="<?php echo $result->keywords_id;?>"/>
+                     Update images: <input type="file" name="picture[]" accept="image/*" multiple/><br/>
+                     
                     <div class="mdl-dialog__actions">
                       <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect">Update now</button>
                       <input type="reset" class="mdl-button mdl-js-button mdl-js-ripple-effect" value="Cancel"/>
                     </div>
+                    <br/>
+                    <!-- loop image -->
+                    <table  class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+                     <tr>
+                      <td class="mdl-data-table__cell--non-numeric">Image</td>
+                      <td class="mdl-data-table__cell--non-numeric">File name</td>
+                      <td class="mdl-data-table__cell--non-numeric">Delete</td>
+                     </tr>
+                     <?php foreach($images->result() as $imgs){?>
+                       <tr>
+                       
+                        <td class="mdl-data-table__cell--non-numeric"> <img style="width:150px;" src="<?php echo base_url('uploads/'.$imgs->file_name); ?>"></td>
+                        <td class="mdl-data-table__cell--non-numeric"><?php echo $imgs->file_name; ?></td>
+                        <td class="mdl-data-table__cell--non-numeric">
+                          <a href="<?php echo base_url('manages/delete_img/'.$imgs->att_id.'/'.$result->keywords_id); ?>" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">
+                            <i class="material-icons">delete</i>
+                          </a>
+                        </td>
+                       </tr>
+                    <?php } ?>
+                     </table>
+                     <!-- end loop image -->
                 </form>
         </div>
         </div>

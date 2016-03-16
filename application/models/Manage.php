@@ -88,5 +88,10 @@ class Manage extends CI_Model{
 		return $this->db->get('users');
 	}
 
+	function get_image($id){
+		$this->db->where('keyword_id',$id);
+		return $this->db->get('attach');
+	}
+
 }
 ?>

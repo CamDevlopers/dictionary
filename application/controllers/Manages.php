@@ -16,12 +16,12 @@ class Manages extends CI_Controller {
 	
 		is_user_logined();
 
-		$data['result'] = $this->Manage->get_keywords($this->session->userdata('user_id'),3,$off_set);
+		$data['result'] = $this->Manage->get_keywords($this->session->userdata('user_id'),20,$off_set);
 		$data['count_all_word'] = $this->Manage->get_count_all_keywords($this->session->userdata('user_id'));
 		$this->load->library('pagination');
 		$config['base_url'] = base_url('manages/dashboard');
 		$config['total_rows'] = $data['count_all_word'];
-		$config['per_page'] = 3; 
+		$config['per_page'] = 20; 
 
 		$config['num_tag_open'] = '<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">';
 		$config['num_tag_close'] = '</button>&nbsp;';
@@ -94,6 +94,7 @@ class Manages extends CI_Controller {
 	public function update_form($keyword_id){
 		is_user_logined();
 		$data['result'] = $this->Manage->get_keyword_by_id($keyword_id);
+		$data['images'] = $this->Manage->get_image($keyword_id);
 		$this->load->view('pages/update_page',$data);
 	}
 
@@ -120,10 +121,27 @@ class Manages extends CI_Controller {
 				$data['color'] = 'A5D6A7';
 			}
 			$id = $this->input->post('id');
+			// uplaods file
+				$count = 0;
+				foreach($_FILES['picture'] as $file) {
+					if($_FILES["picture"]["name"][$count]!=''){
+						$to = date('Y-m-d-h-s-i').'_'.$_FILES["picture"]["name"][$count];
+			 			move_uploaded_file($_FILES['picture']['tmp_name'][$count],"uploads/".$to); 
+			 			$pic['file_name']=$to;
+			 			$pic['keyword_id']= $id;
+			 			$this->Manage->add_picture($pic);
+			 			$count++;
+					}
+					
+				}
+			// end upload file
+
 			if($this->Manage->update_word($data,$id)){
 				$result['result'] = $this->Manage->get_keyword_by_id($id);
+				$result['images'] = $this->Manage->get_image($id);
 				$result['success'] = "Update success!";
 				$this->load->view('pages/update_page',$result);
+				redirect('manages/dashboard');
 			}else{
 				$this->load->view('pages/update_page');
 			}
@@ -202,6 +220,14 @@ class Manages extends CI_Controller {
 		is_user_logined();
 		$data['users'] = $this->Manage->get_all_user();
 		$this->load->view('pages/list_users',$data);
+	}
+
+	function delete_img($delete,$words_id){
+		if($delete!=''){
+			$this->db->where('att_id',$delete);
+			$this->db->delete('attach');
+			redirect('manages/update_form/'.$words_id);
+		}
 	}
 
 }
